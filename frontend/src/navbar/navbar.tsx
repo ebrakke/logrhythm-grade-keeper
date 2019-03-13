@@ -4,7 +4,7 @@ import "./navbar.css";
 
 const Navbar: FC = props => {
   return (
-    <nav className="navbar">
+    <nav className="navbar bg-dark text-light">
       <h2>Grade Keeper</h2>
     </nav>
   );

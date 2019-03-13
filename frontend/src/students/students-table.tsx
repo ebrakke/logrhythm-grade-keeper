@@ -1,4 +1,6 @@
 import React, { FC } from "react";
+
+import TableRow from "./table-row";
 import { Student } from "../types";
 
 /**
@@ -14,25 +16,32 @@ const StudentTable: FC<Props> = props => {
   return (
     <table className="student-table table">
       <thead>
-        <th>First</th>
-        <th>Middle</th>
-        <th>Last</th>
-        <th>Grade</th>
-        <th /> {/* Blank row for edit buttons*/}
+        <tr>
+          <th>First</th>
+          <th>Middle</th>
+          <th>Last</th>
+          <th>Grade</th>
+          <th /> {/* Blank row for edit buttons*/}
+        </tr>
       </thead>
       <tbody>
         {props.students.map(s => (
-          <tr key={s.id}>
-            <td>{s.firstName}</td>
-            <td>{s.middleName}</td>
-            <td>{s.lastName}</td>
-            <td>{s.grade}</td>
-            <td>Edit button</td>
-          </tr>
+          <TableRow
+            student={s}
+            isHilighted={shouldHighlightRow(s)}
+            key={s.id}
+          />
         ))}
       </tbody>
     </table>
   );
 };
 
+/**
+ * Determines if the students row should be highlighted
+ * @param student
+ */
+function shouldHighlightRow(student: Student) {
+  return student.grade < 65;
+}
 export default StudentTable;
