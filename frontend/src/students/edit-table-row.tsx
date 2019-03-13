@@ -1,11 +1,14 @@
+import { get } from "lodash";
 import React, { FC, useState, SyntheticEvent } from "react";
+import uuid from "uuid";
 
 import { Student } from "../types";
 
 type Props = {
-  student: Student;
-  onCancel: () => void;
+  student?: Student;
+  children: (student: Student | {}) => React.ReactElement;
 };
+
 const EditTableRow: FC<Props> = props => {
   // Using the new set state hook to manage form state
   const [editStudentState, updateEditStudentState] = useState({
@@ -23,12 +26,13 @@ const EditTableRow: FC<Props> = props => {
     });
   }
   return (
-    <tr key={props.student.id}>
+    <tr key={get(props.student, "id", "")}>
       <td>
         <input
           type="text"
           name="firstName"
-          value={editStudentState.firstName}
+          placeholder="First Name"
+          value={get(editStudentState, "firstName", "")}
           onChange={handleChange}
           className="form-control"
         />
@@ -37,7 +41,8 @@ const EditTableRow: FC<Props> = props => {
         <input
           type="text"
           name="middleName"
-          value={editStudentState.middleName}
+          placeholder="Middle Name (Optional)"
+          value={get(editStudentState, "middleName", "")}
           onChange={handleChange}
           className="form-control"
         />
@@ -46,7 +51,8 @@ const EditTableRow: FC<Props> = props => {
         <input
           type="text"
           name="lastName"
-          value={editStudentState.lastName}
+          placeholder="Last Name"
+          value={get(editStudentState, "lastName", "")}
           onChange={handleChange}
           className="form-control"
         />
@@ -55,18 +61,14 @@ const EditTableRow: FC<Props> = props => {
         <input
           type="number"
           name="grade"
-          value={editStudentState.grade}
+          placeholder="Grade (0-100)"
+          value={get(editStudentState, "grade")}
           onChange={handleChange}
           className="form-control"
         />
       </td>
       <td>
-        <div className="btn-group">
-          <button className="btn btn-success">Save</button>
-          <button className="btn btn-secondary" onClick={props.onCancel}>
-            Cancel
-          </button>
-        </div>
+        <div className="btn-list">{props.children(editStudentState)}</div>
       </td>
     </tr>
   );

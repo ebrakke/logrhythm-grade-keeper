@@ -11,7 +11,7 @@ const Students: FC = props => {
       <div className="students-stats d-flex justify-content-center">
         <Stats students={mockStudents} />
       </div>
-      <div className="students-table">
+      <div className="p-2 table-responsive">
         <StudentsTable students={mockStudents} />
       </div>
     </div>

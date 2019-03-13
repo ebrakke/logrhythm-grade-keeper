@@ -11,10 +11,24 @@ const TableRow: FC<Props> = props => {
   const [editState, updateEditState] = useState(false);
   if (editState) {
     return (
-      <EditTableRow
-        student={props.student}
-        onCancel={() => updateEditState(false)}
-      />
+      <EditTableRow student={props.student}>
+        {student => (
+          <div className="btn-group">
+            <button
+              className="btn btn-secondary"
+              onClick={() => updateEditState(false)}
+            >
+              Done
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => updateEditState(false)}
+            >
+              Delete
+            </button>
+          </div>
+        )}
+      </EditTableRow>
     );
   }
   return (
