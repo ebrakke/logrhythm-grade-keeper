@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from "react";
-import { round, sumBy, minBy, maxBy, get } from "lodash";
+import { round, sumBy, minBy, maxBy, get, parseInt } from "lodash";
 
 import { Student } from "../types";
 
@@ -32,12 +32,15 @@ const Stats: FC<Props> = props => {
 };
 
 function averageStudentGrade(students: Student[]): number {
-  const avg = sumBy(students, s => s.grade) / students.length;
+  if (students.length === 0) {
+    return 0;
+  }
+  const avg = sumBy(students, s => +s.grade) / students.length;
   return round(avg, 2);
 }
 
 function minStudentGrade(students: Student[]): number {
-  const maybeMin = minBy(students, s => s.grade);
+  const maybeMin = minBy(students, s => +s.grade);
   return get(maybeMin, "grade", 0);
 }
 

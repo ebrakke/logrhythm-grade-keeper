@@ -6,7 +6,8 @@ import { Student } from "../types";
 
 type Props = {
   student?: Student;
-  children: (student: Student | {}) => React.ReactElement;
+  children: (student: Partial<Student>) => React.ReactElement;
+  handleSubmit: (student: Partial<Student>) => void;
 };
 
 const EditTableRow: FC<Props> = props => {
@@ -26,51 +27,58 @@ const EditTableRow: FC<Props> = props => {
     });
   }
   return (
-    <tr key={get(props.student, "id", "")}>
-      <td>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          value={get(editStudentState, "firstName", "")}
-          onChange={handleChange}
-          className="form-control"
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          name="middleName"
-          placeholder="Middle Name (Optional)"
-          value={get(editStudentState, "middleName", "")}
-          onChange={handleChange}
-          className="form-control"
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          value={get(editStudentState, "lastName", "")}
-          onChange={handleChange}
-          className="form-control"
-        />
-      </td>
-      <td>
-        <input
-          type="number"
-          name="grade"
-          placeholder="Grade (0-100)"
-          value={get(editStudentState, "grade")}
-          onChange={handleChange}
-          className="form-control"
-        />
-      </td>
-      <td>
-        <div className="btn-list">{props.children(editStudentState)}</div>
-      </td>
-    </tr>
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        props.handleSubmit(editStudentState);
+      }}
+    >
+      <div className="row" key={get(props.student, "id", "")}>
+        <div className="col">
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={get(editStudentState, "firstName", "")}
+            onChange={handleChange}
+            className="form-control"
+          />
+        </div>
+        <div className="col">
+          <input
+            type="text"
+            name="middleName"
+            placeholder="Middle Name (Optional)"
+            value={get(editStudentState, "middleName", "")}
+            onChange={handleChange}
+            className="form-control"
+          />
+        </div>
+        <div className="col">
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={get(editStudentState, "lastName", "")}
+            onChange={handleChange}
+            className="form-control"
+          />
+        </div>
+        <div className="col">
+          <input
+            type="number"
+            name="grade"
+            placeholder="Grade (0-100)"
+            value={get(editStudentState, "grade")}
+            onChange={handleChange}
+            className="form-control"
+          />
+        </div>
+        <div className="col">
+          <div className="btn-list">{props.children(editStudentState)}</div>
+        </div>
+      </div>
+    </form>
   );
 };
 

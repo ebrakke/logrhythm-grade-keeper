@@ -69,7 +69,9 @@ export async function addStudent(student: Partial<Student>): Promise<Student> {
  * as an existing student
  * @param student
  */
-export async function updateStudent(student: Student): Promise<Student> {
+export async function updateStudent(
+  student: Partial<Student>
+): Promise<Student> {
   const valid = validateStudent(student);
   if (!valid) {
     return Promise.reject("Invalid student");
@@ -89,10 +91,29 @@ export async function updateStudent(student: Student): Promise<Student> {
       "students",
       JSON.stringify([student, ...otherStudents])
     );
-    return Promise.resolve(student);
+    return Promise.resolve(student as Student);
   } catch (error) {
     console.error(error);
     return Promise.reject("Unable to update student");
+  }
+}
+
+/**
+ * Remove a student from local storage
+ * If the student does not exist, no error will be throw, but the students will remain the same
+ * @param student
+ */
+export async function deleteStudent(
+  student: Partial<Student>
+): Promise<Student> {
+  try {
+    const students = await getStudents();
+    const updatedStudents = students.filter(s => s.id !== student.id);
+    localStorage.setItem("students", JSON.stringify(updatedStudents));
+    return Promise.resolve(student as Student);
+  } catch (error) {
+    console.error(error);
+    return Promise.reject("Cannot remove user");
   }
 }
 

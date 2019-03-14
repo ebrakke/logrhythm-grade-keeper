@@ -3,7 +3,6 @@ import React, { FC, useState } from "react";
 import TableRow from "./table-row";
 import EditTableRow from "./edit-table-row";
 import { Student } from "../types";
-import { addStudent } from "../api";
 
 /**
  * This is a table for students.  For larger projects, it would be better to make a
@@ -13,49 +12,66 @@ import { addStudent } from "../api";
 
 type Props = {
   students: Student[];
+  addStudent: (student: Partial<Student>) => Promise<Student>;
+  editStudent: (student: Partial<Student>) => Promise<Student>;
+  deleteStudent: (student: Partial<Student>) => Promise<Student>;
 };
 const StudentTable: FC<Props> = props => {
   const [addStudentState, setAddStudentState] = useState(false);
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>First</th>
-          <th>Middle</th>
-          <th>Last</th>
-          <th>Grade</th>
-          <th>
-            <button
-              className="btn btn-success"
-              onClick={() => setAddStudentState(true)}
-            >
-              Add Student
-            </button>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {addStudentState ? (
-          <EditTableRow>
-            {student => (
+    <div className="student-table">
+      <div className="row">
+        <h4 className="col">First</h4>
+        <h4 className="col">Middle</h4>
+        <h4 className="col">Last</h4>
+        <h4 className="col">Grade</h4>
+        <div className="col">
+          <button
+            className="btn btn-success"
+            onClick={() => setAddStudentState(true)}
+          >
+            Add Student
+          </button>
+        </div>
+      </div>
+      {addStudentState ? (
+        <EditTableRow
+          handleSubmit={(student: Partial<Student>) =>
+            props.addStudent(student).then(() => setAddStudentState(false))
+          }
+        >
+          {student => (
+            <div className="btn-group">
               <button
                 className="btn btn-success"
-                onClick={() => setAddStudentState(false)}
+                onClick={() =>
+                  props
+                    .addStudent(student)
+                    .then(() => setAddStudentState(false))
+                }
               >
                 Save
               </button>
-            )}
-          </EditTableRow>
-        ) : null}
-        {props.students.map(s => (
-          <TableRow
-            student={s}
-            isHilighted={shouldHighlightRow(s)}
-            key={s.id}
-          />
-        ))}
-      </tbody>
-    </table>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setAddStudentState(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+        </EditTableRow>
+      ) : null}
+      {props.students.map(s => (
+        <TableRow
+          student={s}
+          isHilighted={shouldHighlightRow(s)}
+          editStudent={props.editStudent}
+          deleteStudent={props.deleteStudent}
+          key={s.id}
+        />
+      ))}
+    </div>
   );
 };
 

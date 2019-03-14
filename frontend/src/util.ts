@@ -17,6 +17,7 @@ import { Student } from "./types";
 export function validateStudent(student: Partial<Student>): boolean {
   const validFirstName = get(student, "firstName", "").length > 1;
   const validLastName = get(student, "lastName", "").length > 1;
-  const validGrade = get(student, "grade", -1) >= 0;
+  const validGrade =
+    get(student, "grade", -1) >= 0 && get(student, "grade", -1) <= 100;
   return validFirstName && validLastName && validGrade;
 }
