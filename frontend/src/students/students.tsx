@@ -47,9 +47,11 @@ const Students: FC<Props> = props => {
         <Stats students={props.students} />
       </div>
       <div className="p-2 container">
-        {props.error ? (
-          <div className="alert alert-danger">{props.error}</div>
-        ) : null}
+        <div className="alert-area ">
+          {props.error ? (
+            <div className="alert alert-danger">{props.error}</div>
+          ) : null}
+        </div>
         <StudentsTable
           students={props.students}
           addStudent={props.addStudent}

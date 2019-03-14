@@ -86,7 +86,7 @@ const EditTableRow: FC<Props> = props => {
             type="number"
             name="grade"
             placeholder="Grade (0-100)"
-            value={get(editStudentState, "grade", 0)}
+            value={get(editStudentState, "grade", "")}
             onChange={handleChange}
             onBlur={handleOnBlur}
             className="form-control"

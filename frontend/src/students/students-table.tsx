@@ -55,6 +55,7 @@ const StudentTable: FC<Props> = props => {
               <button
                 className="btn btn-secondary"
                 onClick={() => setAddStudentState(false)}
+                type="button"
               >
                 Cancel
               </button>

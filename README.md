@@ -1,6 +1,6 @@
 # Grade Keeper
 
-This is the grade keeper coding exercise for LogRhythm. Instructions can be found in `instructions.md`
+This is the grade keeper coding exercise for LogRhythm. See `instructions.md` for assignment
 
 ## Setup
 
@@ -50,12 +50,22 @@ I used the new React `useState` hook in a few places as it is helpful to have lo
 
 I used `redux-thunk` to handle dispatching asynchronous actions for all of the CRUD actions on a student. Because I'm using localstorage, everything resolves pretty much immediately, so I do not include any kind of `Loading...` icon in the app. However the state does update, so if moved to an API it would be simple to add in the loading UI.
 
-I used `bootstrap` without any real customization. This makes the app look very generic, however I think that it is great for getting POC apps off the ground. Spending time overriding bootstrap defaults would help to make this app look like it's own.
+`redux-act` is used to help keep actions creators and reducers consistent, plus it reduces some of the boilerplate necessary to create actions and reducers.
+
+I only have 1 reducer because the app state is so small; breaking this out into more reducers and using `combineReducers` would be preferred as the app state continues to grow.
+
+I used `bootstrap` without any customization. This makes the app look very generic, however I think that it is great for getting POC apps off the ground. Spending time overriding bootstrap defaults would help to make this app look unique.
 
 ## Improvements
 
 UX - Figuring out how the user is actually using this would help drive better design choices
 
+Responsive design - this doesn't look great on mobile
+
+Unit tests - Using jest to test individual components as well as the api methods would help ensure the quality of this code
+
 More reusable components. Right now there is just one form component used to create and edit. Tables, Forms, Buttons, etc... should all be generic components with a unified style that can be used throughout the app.
 
 Sorting and filtering on the table to find students if the list grows large enough.
+
+More validation - There are definitely more things I have not validated against which would be good to catch in the UI. Stripping out leading and trailing spaces, no special characters, etc...

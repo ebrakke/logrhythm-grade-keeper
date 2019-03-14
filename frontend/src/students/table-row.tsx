@@ -32,9 +32,8 @@ const TableRow: FC<Props> = props => {
             </button>
             <button
               className="btn btn-danger"
-              onClick={() =>
-                props.deleteStudent(student).then(() => updateEditState(false))
-              }
+              type="button"
+              onClick={() => props.deleteStudent(student)}
             >
               Delete
             </button>
