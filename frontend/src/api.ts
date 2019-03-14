@@ -3,13 +3,6 @@ import { get } from "lodash";
 
 import { Student } from "./types";
 import { validateStudent } from "./util";
-// Mock Data
-export const mockStudents: Student[] = [
-  { id: uuid(), firstName: "Stan", lastName: "Marsh", grade: 87 },
-  { id: uuid(), firstName: "Eric", lastName: "Cartman", grade: 58 },
-  { id: uuid(), firstName: "Kyle", lastName: "Broflovski", grade: 95 },
-  { id: uuid(), firstName: "Kenny", lastName: "McCormic", grade: 75 }
-];
 
 /**
  * Retrieve a list of students from a data source.

@@ -1,6 +1,5 @@
 import { get } from "lodash";
 import React, { FC, useState, SyntheticEvent } from "react";
-import uuid from "uuid";
 
 import { Student } from "../types";
 

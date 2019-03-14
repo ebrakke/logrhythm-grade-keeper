@@ -20,7 +20,7 @@ const StudentTable: FC<Props> = props => {
   const [addStudentState, setAddStudentState] = useState(false);
   return (
     <div className="student-table">
-      <div className="row">
+      <div className="row text-center">
         <h4 className="col">First</h4>
         <h4 className="col">Middle</h4>
         <h4 className="col">Last</h4>

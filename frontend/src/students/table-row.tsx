@@ -45,7 +45,7 @@ const TableRow: FC<Props> = props => {
   return (
     <div
       key={props.student.id}
-      className={`row ${props.isHilighted ? "bg-danger" : null}`}
+      className={`row text-center ${props.isHilighted ? "bg-danger" : null}`}
     >
       <div className="col">{props.student.firstName}</div>
       <div className="col">{props.student.middleName}</div>
