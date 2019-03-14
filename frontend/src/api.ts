@@ -32,9 +32,10 @@ export function getStudents(): Promise<Student[]> {
 export async function addStudent(student: Partial<Student>): Promise<Student> {
   // validate the student here
   // This would also be done at an API layer if one existed
-  const valid = validateStudent(student);
-  if (!valid) {
-    return Promise.reject("Invalid student");
+  const invalid = validateStudent(student);
+  if (invalid.length > 0) {
+    // Add the first error message we see
+    return Promise.reject(invalid[0]);
   }
   try {
     const students = await getStudents();
@@ -65,9 +66,9 @@ export async function addStudent(student: Partial<Student>): Promise<Student> {
 export async function updateStudent(
   student: Partial<Student>
 ): Promise<Student> {
-  const valid = validateStudent(student);
-  if (!valid) {
-    return Promise.reject("Invalid student");
+  const invalid = validateStudent(student);
+  if (invalid.length) {
+    return Promise.reject(invalid[0]);
   }
   try {
     const students = await getStudents();

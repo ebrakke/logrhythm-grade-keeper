@@ -45,7 +45,7 @@ function minStudentGrade(students: Student[]): number {
 }
 
 function maxStudentGrade(students: Student[]): number {
-  const maybeMax = maxBy(students, s => s.grade);
+  const maybeMax = maxBy(students, s => +s.grade);
   return get(maybeMax, "grade", 0);
 }
 

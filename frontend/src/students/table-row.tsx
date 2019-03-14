@@ -18,6 +18,7 @@ const TableRow: FC<Props> = props => {
         handleSubmit={student =>
           props.editStudent(student).then(() => updateEditState(false))
         }
+        handleBlur={props.editStudent}
       >
         {student => (
           <div className="btn-group">
